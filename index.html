@@ -9,6 +9,10 @@
 <body>
 	<div id="wrapper" ng-controller="interavtiveMapCtrl">
 		<svg width="730" height="500">
+			<g class="state" ng-repeat="state in states" click-state>
+				<path class="state {{state.stateColor}}" ng-attr-d="{{state.vector}}" stroke="white"></path>
+			</g>
+		</svg>
 	</div>
 
 </body>
