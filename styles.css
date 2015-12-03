@@ -11,3 +11,9 @@
 #wrapper svg{
 	background-color: #cacaca;
 } 
+
+.state-info{
+	color: white;
+	font-weight: bold;
+	font-size: 12px;
+}

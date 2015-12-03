@@ -13,8 +13,15 @@
 		<svg width="730" height="500">
 			<g class="state" ng-repeat="state in states" click-state>
 				<path class="state {{state.stateColor}}" ng-attr-d="{{state.vector}}" stroke="white"></path>
+				<foreignObject ng-attr-x="{{state.nameX}}" ng-attr-y="{{state.nameY}}">
+					<body>
+						<div class="state-info">{{state.abbr}}<br />{{state.electoralVotes}}</div>
+					</body>
+				</foreignObject>
 			</g>
 		</svg>
+		<h3>Red: {{redStateVotes}}</h3>
+		<h3>Blue: {{blueStateVotes}}</h3>
 	</div>
 
 </body>
