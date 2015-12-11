@@ -6,17 +6,28 @@
 	<script type="text/javascript" src="state-objects.js"></script>
 	<script type="text/javascript" src="controller.js"></script>
 
+	
 	<link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
 	<div id="wrapper" ng-controller="interactiveMapCtrl">
-		
-		<svg width="960" height="500">
+		<div id="vote-bar-wrap">
+			<div class="arrow top"></div>
+			<div class="arrow bottom"></div>
+			<h3 class="red"><span class="voteCount" ng-bind="redStateVotes"></span>Republican</h3>
+			<h3 class="blue">Democrat<span class="voteCount" ng-bind="blueStateVotes"></span></h3>
+			<div id="fullbar">
+				<div id="blue-bar" class="blue bar" ng-style="{'width': blueWidth}"></div>
+				<div id="open-bar" class="open bar" ng-style="{'width': openWidth}"><p id="open-votes" ng-bind="openStateVotes"></p></div>
+				<div id="red-bar" class="red bar" ng-style="{'width': redWidth}"></div>
+			</div>
+		</div>
+		<svg width="750" height="500">
 			<g ng-class="state" ng-repeat="state in states" ng-click="stateClicked(state)">
 				<path class="state {{state.stateColor}}" ng-attr-d="{{state.vector}}" stroke="white"></path>
 				<foreignObject ng-if="state.nameX != ''" ng-attr-x="{{state.nameX}}" ng-attr-y="{{state.nameY}}">
 					<body>
-						<div class="state-info">{{state.abbr}}<br />{{state.electoralVotes}}</div>
+						<div class="state-info {{state.abbr}}">{{state.abbr}}<br />{{state.electoralVotes}}</div>
 					</body>
 				</foreignObject>
 			</g>
@@ -31,9 +42,10 @@
 				</tbody>
 			</table>
 		</div>
-		<h3>Red: <span ng-bind="redStateVotes"></span></h3>
-		<h3>Blue: <span ng-bind="blueStateVotes"></span></h3>
+		<button class="btn btn-default" ng-click="reset()">Reset Map</button>
+
 	</div>
+
 
 </body>
 </html>

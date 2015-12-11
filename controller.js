@@ -25,8 +25,11 @@ function interactiveMapCtrl($scope){
 			} else if(openStates[i]){
 				$scope.openStateVotes += openStates[i].electoralVotes;
 			}
-			
 		}
+		$scope.blueWidth = ($scope.blueStateVotes/ 538)*100 + '%';
+		$scope.redWidth = ($scope.redStateVotes/ 538)*100 + '%';
+		$scope.openWidth = ($scope.openStateVotes/ 538)*100 + '%';
+
 	}
 
 	$scope.stateClicked = function(state){
@@ -34,7 +37,13 @@ function interactiveMapCtrl($scope){
 		calculateStateTotals();
 	}
 
+	$scope.reset = function(){
+		resetStates();
+		$scope.states = states;
+		calculateStateTotals();
+	}
 
+	resetStates();
 	$scope.states = states;
 
 	calculateStateTotals();

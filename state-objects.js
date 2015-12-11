@@ -10,9 +10,14 @@ function State(id,name,abbr,stateColor,electoralVotes,nameX, nameY,vector, isSma
     this.isSmall = isSmall;
     this.smallStateVal = smallStateVal;
 }
-	//init arrays
+	
+
+function resetStates(){
+    //init arrays
 	//states = vector and data info
-	states = [];
+	
+
+    states = [];
 	//Separate array for state, by color
     blueStates = [];
     redStates = [];
@@ -82,4 +87,6 @@ function State(id,name,abbr,stateColor,electoralVotes,nameX, nameY,vector, isSma
     }
 
 
-    var numStates = states.length;
+    numStates = states.length;
+
+}

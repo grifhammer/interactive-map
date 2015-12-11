@@ -1,5 +1,9 @@
 
-
+#wrapper{
+    position: relative;
+    width: 750px;
+    margin: auto;
+}
 
 .red{
 	fill: #BA3A33;
@@ -27,7 +31,7 @@
 }
 #small-state-wrap{
     position: absolute;
-    top: 220px;
+    top: 285px;
     left: 680px;
     font-size: 12px;
     font-family: 'Trebuchet MS',Helvetica;
@@ -43,4 +47,126 @@ td{
 
 .state-abbr{
     color: black;
+}
+.HI{
+    color: black;
+}
+
+#vote-bar-wrap{
+    overflow: hidden;
+    position: relative;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 750px;
+    font-family: 'Trebuchet MS',Helvetica;
+}
+
+h3{
+    margin: 10px 0 5px;
+}
+
+.arrow{
+    width: 0;
+    height: 0;
+    position: absolute;
+    left: 50%;
+}
+
+.btn{
+    position: absolute;
+    bottom: 50px;
+    right: 225px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    font-family: sans-serif;
+}
+
+.btn-default{
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+}
+.btn-default:hover {
+  color: #333;
+  background-color: #e6e6e6;
+  border-color: #adadad;
+}
+
+.btn:active {
+  background-image: none;
+  outline: 0;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+          box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+}
+.btn:focus {
+    outline: 0;
+}
+
+.top{
+    border-bottom: 5px solid transparent;
+    border-top: 10px solid black;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    top: 28px;
+}
+
+.bottom{
+    border-bottom: 10px solid black;
+    border-top: 5px solid transparent;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    bottom: 10px;
+}
+
+.voteCount{
+    margin: 0 30px;
+    font-size: 20px;
+}
+
+#vote-bar-wrap .red{
+    float: right;
+    background-color: white;
+    color: #BA3A33;
+}
+
+#fullbar{
+    width: 100%;
+    overflow: hidden;
+    padding-bottom: 10px;
+}
+
+.bar{
+    height: 20px;
+    margin-bottom: 10px;
+}
+
+#fullbar .bar.blue{
+    background-color: #445E96;
+    float: left;    
+}
+
+#fullbar .bar.open{
+    background-color: #c2b280;
+    float: left;
+    text-align: center;
+    font-family: 'Trebuchet MS',Helvetica;
+    color: white;
+    font-size: 12px;
+}
+
+#open-votes{
+    margin-top: 3px;
+    font-weight: bold;
+}
+
+#fullbar .bar.red{
+    background-color: #BA3A33;
+    float: left;
+}
+#vote-bar-wrap .blue{
+    float: left;
+    background-color: white;
+    color: #445E96;
 }
