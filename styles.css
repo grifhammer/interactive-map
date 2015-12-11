@@ -1,19 +1,23 @@
+
+
+
 .red{
-	fill: red;
+	fill: #BA3A33;
 }
 .blue{
-	fill: blue;
+	fill: #445E96;
 }
 .open{
 	fill: #c2b280;
 }
 
 #wrapper svg{
-	background-color: #cacaca;
+	background-color: white;
 } 
 
 .state-info{
 	color: white;
 	font-weight: bold;
 	font-size: 12px;
+    font-family: 'Trebuchet MS',Helvetica;
 }
