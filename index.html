@@ -24,8 +24,8 @@
 		<div id="small-state-wrap">
 			<table cellSpacing="5">
 				<tbody>
-					<tr ng-repeat="state in states | filter: !state.isSmall">
-						<td ng-class="state.stateColor">{{state.electoralVotes}}</td>
+					<tr ng-repeat="state in states | filter: !state.isSmall" ng-click="(stateClicked(state))">
+						<td class="state {{state.stateColor}}">{{state.electoralVotes}}</td>
 						<td class="state-abbr">{{state.abbr}}</td>
 					</tr>
 				</tbody>
