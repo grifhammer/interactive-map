@@ -10,16 +10,27 @@
 </head>
 <body>
 	<div id="wrapper" ng-controller="interactiveMapCtrl">
+		
 		<svg width="960" height="500">
 			<g ng-class="state" ng-repeat="state in states" ng-click="stateClicked(state)">
 				<path class="state {{state.stateColor}}" ng-attr-d="{{state.vector}}" stroke="white"></path>
-				<foreignObject ng-attr-x="{{state.nameX}}" ng-attr-y="{{state.nameY}}">
+				<foreignObject ng-if="state.nameX != ''" ng-attr-x="{{state.nameX}}" ng-attr-y="{{state.nameY}}">
 					<body>
 						<div class="state-info">{{state.abbr}}<br />{{state.electoralVotes}}</div>
 					</body>
 				</foreignObject>
 			</g>
 		</svg>
+		<div id="small-state-wrap">
+			<table cellSpacing="5">
+				<tbody>
+					<tr ng-repeat="state in states | filter: !state.isSmall">
+						<td ng-class="state.stateColor">{{state.electoralVotes}}</td>
+						<td class="state-abbr">{{state.abbr}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 		<h3>Red: <span ng-bind="redStateVotes"></span></h3>
 		<h3>Blue: <span ng-bind="blueStateVotes"></span></h3>
 	</div>

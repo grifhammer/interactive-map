@@ -3,16 +3,20 @@
 
 .red{
 	fill: #BA3A33;
+    background-color: #BA3A33;
 }
 .blue{
 	fill: #445E96;
+    background-color: #445E96;
 }
 .open{
 	fill: #c2b280;
+    background-color: #c2b280;
 }
 
 #wrapper svg{
 	background-color: white;
+    position: relative;
 } 
 
 .state-info{
@@ -20,4 +24,23 @@
 	font-weight: bold;
 	font-size: 12px;
     font-family: 'Trebuchet MS',Helvetica;
+}
+#small-state-wrap{
+    position: absolute;
+    top: 220px;
+    left: 680px;
+    font-size: 12px;
+    font-family: 'Trebuchet MS',Helvetica;
+}
+
+td{
+    color: white;
+    width: 20px;
+    height: 15px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.state-abbr{
+    color: black;
 }
