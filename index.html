@@ -10,8 +10,8 @@
 </head>
 <body>
 	<div id="wrapper" ng-controller="interactiveMapCtrl">
-		<svg width="730" height="500">
-			<g class="state" ng-repeat="state in states" click-state>
+		<svg width="960" height="500">
+			<g ng-class="state" ng-repeat="state in states" ng-click="stateClicked(state)">
 				<path class="state {{state.stateColor}}" ng-attr-d="{{state.vector}}" stroke="white"></path>
 				<foreignObject ng-attr-x="{{state.nameX}}" ng-attr-y="{{state.nameY}}">
 					<body>
@@ -20,8 +20,8 @@
 				</foreignObject>
 			</g>
 		</svg>
-		<h3>Red: {{redStateVotes}}</h3>
-		<h3>Blue: {{blueStateVotes}}</h3>
+		<h3>Red: <span ng-bind="redStateVotes"></span></h3>
+		<h3>Blue: <span ng-bind="blueStateVotes"></span></h3>
 	</div>
 
 </body>

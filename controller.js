@@ -5,12 +5,7 @@ stateMap.controller('interactiveMapCtrl', interactiveMapCtrl);
 stateMap.directive('clickState', function(){
 	return{
 		link: function($scope, element){
-			element.bind('click',function(){
-				var newColor = getNewColor($scope.state);
-				var stateElement = element[0].querySelector('path');
-				stateElement.setAttribute('class', 'state ' + newColor);
-				$scope.$parent.calculateStateTotals();
-			});
+			element.bind('click',function(){});
 		}
 	}
 });
@@ -18,15 +13,15 @@ stateMap.directive('clickState', function(){
 
 function interactiveMapCtrl($scope){
 
-	$scope.calculateStateTotals = function(){
+	calculateStateTotals = function(){
 		$scope.redStateVotes = 0;
 		$scope.blueStateVotes = 0;
 		$scope.openStateVotes = 0;
 		for(var i = 0; i < numStates; i++){
 			if(blueStates[i]){
-				$scope.redStateVotes += blueStates[i].electoralVotes;
+				$scope.blueStateVotes += blueStates[i].electoralVotes;
 			} else if(redStates[i]){
-				$scope.blueStateVotes += redStates[i].electoralVotes;
+				$scope.redStateVotes += redStates[i].electoralVotes;
 			} else if(openStates[i]){
 				$scope.openStateVotes += openStates[i].electoralVotes;
 			}
@@ -34,15 +29,22 @@ function interactiveMapCtrl($scope){
 		}
 	}
 
+	$scope.stateClicked = function(state){
+		var newColor = getNewColor(state);
+		calculateStateTotals();
+	}
+
 
 	$scope.states = states;
 
-	$scope.calculateStateTotals();
+	calculateStateTotals();
 
 	
 
 }
 
+
+	
 
 
 
@@ -50,17 +52,17 @@ function interactiveMapCtrl($scope){
 function getNewColor(state){
 	if(state.stateColor === "red"){
 		state.stateColor = "blue"
-		redStates.splice(state.id,1, '');
+		redStates[state.id] = null;
 		blueStates[state.id] = state;
 		return "blue";
 	} else if(state.stateColor === "blue"){
 		state.stateColor = "open"
-		blueStates.splice(state.id,1, '');
+		blueStates[state.id]= null;
 		openStates[state.id] = state;
 		return "open";
 	} else if(state.stateColor === "open"){
 		state.stateColor = "red"
-		openStates.splice(state.id,1,'');
+		openStates[state.id] = null;
 		redStates[state.id] = state;
 		return "red"
 	} else{
