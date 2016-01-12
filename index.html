@@ -43,6 +43,18 @@
 			</table>
 		</div>
 		<button class="btn btn-default" ng-click="reset()">Reset Map</button>
+		<h2>Red State Ways To Win</h2>
+		<div class="way-to-win" ng-repeat="winCase in redWins">
+			<div ng-repeat="stateName in winCase" >
+				<p ng-bind="stateName"></p>
+			</div>
+		</div>
+		<h2>Blue State Ways To Win</h2>
+		<div class="way-to-win" ng-repeat="winCase in blueWins">
+			<div ng-repeat="stateName in winCase" >
+				<p ng-bind="stateName"></p>
+			</div>
+		</div>
 
 	</div>
 
