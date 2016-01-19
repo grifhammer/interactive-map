@@ -4,6 +4,7 @@
 	<title>States!</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
 	<script type="text/javascript" src="state-objects.js"></script>
+	<script type="text/javascript" src="solutions.js"></script>
 	<script type="text/javascript" src="controller.js"></script>
 
 	
@@ -11,48 +12,50 @@
 </head>
 <body>
 	<div id="wrapper" ng-controller="interactiveMapCtrl">
-		<div id="vote-bar-wrap">
-			<div class="arrow top"></div>
-			<div class="arrow bottom"></div>
-			<h3 class="red"><span class="voteCount" ng-bind="redStateVotes"></span>Republican</h3>
-			<h3 class="blue">Democrat<span class="voteCount" ng-bind="blueStateVotes"></span></h3>
-			<div id="fullbar">
-				<div id="blue-bar" class="blue bar" ng-style="{'width': blueWidth}"></div>
-				<div id="open-bar" class="open bar" ng-style="{'width': openWidth}"><p id="open-votes" ng-bind="openStateVotes" ng-if="openStateVotes > 9"></p></div>
-				<div id="red-bar" class="red bar" ng-style="{'width': redWidth}"></div>
+		<div id="map-wrapper">
+			<div id="vote-bar-wrap">
+				<div class="arrow top"></div>
+				<div class="arrow bottom"></div>
+				<h3 class="red"><span class="voteCount" ng-bind="redStateVotes"></span>Republican</h3>
+				<h3 class="blue">Democrat<span class="voteCount" ng-bind="blueStateVotes"></span></h3>
+				<div id="fullbar">
+					<div id="blue-bar" class="blue bar" ng-style="{'width': blueWidth}"></div>
+					<div id="open-bar" class="open bar" ng-style="{'width': openWidth}"><p id="open-votes" ng-bind="openStateVotes" ng-if="openStateVotes > 9"></p></div>
+					<div id="red-bar" class="red bar" ng-style="{'width': redWidth}"></div>
+				</div>
+			</div>
+			<svg width="750" height="500">
+				<g ng-class="state" ng-repeat="state in states" ng-click="stateClicked(state)">
+					<path class="state {{state.stateColor}}" ng-attr-d="{{state.vector}}" stroke="white"></path>
+					<foreignObject ng-if="state.nameX != ''" ng-attr-x="{{state.nameX}}" ng-attr-y="{{state.nameY}}">
+						<body>
+							<div class="state-info {{state.abbr}}">{{state.abbr}}<br />{{state.electoralVotes}}</div>
+						</body>
+					</foreignObject>
+				</g>
+			</svg>
+			<div id="small-state-wrap">
+				<table cellSpacing="5">
+					<tbody>
+						<tr ng-repeat="state in states | filter: !state.smallStateVal | orderBy: 'smallStateVal'" ng-click="(stateClicked(state))">
+							<td class="state {{state.stateColor}}">{{state.electoralVotes}}</td>
+							<td class="state-abbr">{{state.abbr}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<button class="btn btn-default" ng-click="reset()">Reset Map</button>
+		</div>
+		<div id="redWins">
+			<h2>Red State Ways To Win</h2>
+			<div class="way-to-win" ng-repeat="winCase in redWins">
+				<p ng-bind="winCase"></p>
 			</div>
 		</div>
-		<svg width="750" height="500">
-			<g ng-class="state" ng-repeat="state in states" ng-click="stateClicked(state)">
-				<path class="state {{state.stateColor}}" ng-attr-d="{{state.vector}}" stroke="white"></path>
-				<foreignObject ng-if="state.nameX != ''" ng-attr-x="{{state.nameX}}" ng-attr-y="{{state.nameY}}">
-					<body>
-						<div class="state-info {{state.abbr}}">{{state.abbr}}<br />{{state.electoralVotes}}</div>
-					</body>
-				</foreignObject>
-			</g>
-		</svg>
-		<div id="small-state-wrap">
-			<table cellSpacing="5">
-				<tbody>
-					<tr ng-repeat="state in states | filter: !state.smallStateVal | orderBy: 'smallStateVal'" ng-click="(stateClicked(state))">
-						<td class="state {{state.stateColor}}">{{state.electoralVotes}}</td>
-						<td class="state-abbr">{{state.abbr}}</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<button class="btn btn-default" ng-click="reset()">Reset Map</button>
-		<h2>Red State Ways To Win</h2>
-		<div class="way-to-win" ng-repeat="winCase in redWins">
-			<div ng-repeat="stateName in winCase" >
-				<p ng-bind="stateName"></p>
-			</div>
-		</div>
-		<h2>Blue State Ways To Win</h2>
-		<div class="way-to-win" ng-repeat="winCase in blueWins">
-			<div ng-repeat="stateName in winCase" >
-				<p ng-bind="stateName"></p>
+		<div id="blueWins">
+			<h2>Blue State Ways To Win</h2>
+			<div class="way-to-win" ng-repeat="winCase in blueWins">
+				<p ng-bind="winCase"></p>
 			</div>
 		</div>
 

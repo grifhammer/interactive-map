@@ -1,7 +1,21 @@
+#map-wrapper{
+    position: relative;
+    width: 750px;
+    margin: auto;
+}
+#redWins{
+    float: left;
+    width: 50%;
+}
+
+#blueWins{
+    float: right;
+    width: 50%;
+}
 
 #wrapper{
     position: relative;
-    width: 750px;
+    width: 90%;
     margin: auto;
 }
 
@@ -70,7 +84,7 @@ h3{
     width: 0;
     height: 0;
     position: absolute;
-    left: 50%;
+    left: 49.3%;
 }
 
 .btn{

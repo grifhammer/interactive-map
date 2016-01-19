@@ -25,102 +25,62 @@ function interactiveMapCtrl($scope){
 	}
 
 	calculateWaysToWin = function(){
+
 		$scope.blueWins = waysTo270For('blue');
 		$scope.redWins = waysTo270For('red');
 	}
 
 	waysTo270For = function(stateColor){
 		//check current value of this colors states
-		console.log(stateColor);
-		var solutionStates = [];
 		var currentVoteTotal = 0;
 		if(stateColor == 'blue'){
 			//use blue states
-			solutionStates = blueStates;
 			currentVoteTotal = $scope.blueStateVotes;
-			console.log("I am blue")
-			console.log(currentVoteTotal)
-			console.log($scope.redStateVotes)
-			console.log($scope.blueStateVotes)
 		}else if(stateColor == 'red'){
 			//use red states
-			console.log("I am red")
-			solutionStates = redStates;
 			currentVoteTotal = $scope.redStateVotes;
-			console.log(currentVoteTotal)
-			console.log($scope.redStateVotes)
-			console.log($scope.blueStateVotes)
 		}else{
 			//report error in requested state color
 			return "state color must be 'red' or 'blue'";
 		}
-		//if greater than 270 all combinations of this set with open states work
-		if(currentVoteTotal > 270){
-			// return any combination of open states
-		}else{
-			// find difference necessary to hit 270
-			var necessaryVotes = Math.max(270 - currentVoteTotal,0);
-			//get an array of all open states
-			var currentOpenStates = [];
-			for(var i = 0; i < 50; i++){
-				if(openStates[i]){
-					currentOpenStates.push(openStates[i]);
-				}
-			}
-			// if maxvalue is less than result needed to get 270 return nothing
-			// create 2d-array from 0-currentOpenStates.count(), and 0 to maxpossible value
-			// take results from dynamic programming and only take results greater than min value to get over 270
-			var prevCombinationsArray = [];
-			var avaliableVotes = 0;
-			for(var arrayStart = 0; arrayStart < currentOpenStates.length; arrayStart++){
-				avaliableVotes += currentOpenStates[arrayStart].electoralVotes;
-			}
-
-			// Initialize combinations nested array
-			for(var currVoteTotal = 0; currVoteTotal <= avaliableVotes; currVoteTotal++){
-				prevCombinationsArray[currVoteTotal] = [];
-			}
-
-
-			// loop through all avaliable states
-			for(var currStateIndex = 0; currStateIndex < currentOpenStates.length; currStateIndex++){
-				// loop through all possible vote combinations
-
-				var currState = currentOpenStates[currStateIndex];
-				var newCombinationsArray = prevCombinationsArray.map(function(arr){
-					return arr.slice();
-				});
-
-				for(var currVoteTotal = 0; currVoteTotal <= avaliableVotes; currVoteTotal++){
-					// loop through all combinations totaling in currVoteTotal
-
-					var currCombinations = prevCombinationsArray[currVoteTotal];
-					for(var combinationIndex = 0; combinationIndex < currCombinations.length; combinationIndex++){
-
-						var newCombination = currCombinations[combinationIndex].slice();
-						newCombination.push(currState.name) 
-
-						newCombinationsArray[currVoteTotal + currState.electoralVotes].push(newCombination);
-					}
-					if(currVoteTotal === currState.electoralVotes){
-						newCombinationsArray[currVoteTotal].push([currState.name]);
-					}
-				}
-				prevCombinationsArray = newCombinationsArray.slice()
-			}
-
-			//split results to only those that would get us above 270 votes
-			prevCombinationsArray = prevCombinationsArray.slice(necessaryVotes, prevCombinationsArray.length);
-
-			var maxOptionsToDisplay = 50;
-			var numResultsInArray = 0;
-			var resultsToReturn = [];
-			var resultsIndex = 0;
-
-			
-			return prevCombinationsArray;
-
+		if(currentVoteTotal >= 270){
+			return ["You already won!"]
 		}
+		// find difference necessary to hit 270
+		var necessaryVotes = Math.max(270 - currentVoteTotal,0);
+
+		//get a non-empty array of all open states
+		var currentOpenStates = [];
+		for(var i = 0; i < 50; i++){
+			if(openStates[i]){
+				currentOpenStates.push(openStates[i]);
+			}
+		}
+
+		// if maxvalue is less than result needed to get 270 return nothing
+		// create 2d-array from 0-currentOpenStates.count(), and 0 to maxpossible value
+		// take results from dynamic programming and only take results greater than min value to get over 270
+		var avaliableVotes = 0;
+		for(var arrayStart = 0; arrayStart < currentOpenStates.length; arrayStart++){
+			avaliableVotes += currentOpenStates[arrayStart].electoralVotes;
+		}
+
+		//check if a win is possible
+		if(avaliableVotes < necessaryVotes){
+			return ['The election is won already'];
+		}
+
+		
+		var possibleOpenStateCombinations = findStateCombinations(currentOpenStates, avaliableVotes);
+
+		//split results to only those that would get us above 270 votes
+		winningStateCombinations = possibleOpenStateCombinations.slice(necessaryVotes, possibleOpenStateCombinations.length);
+
+		var maxResultsToDisplay = 10;
+		var trimmedResults = trimResults(winningStateCombinations, maxResultsToDisplay);
+		
+		return trimmedResults;
+		
 
 	}
 
