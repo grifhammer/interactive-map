@@ -184,3 +184,16 @@ h3{
     background-color: white;
     color: #445E96;
 }
+
+
+h2{
+    text-align: center;
+}
+
+#redWins{
+    color: #BA3A33;
+}
+
+#blueWins{
+    color: #445E96;
+}
